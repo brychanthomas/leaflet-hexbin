@@ -18,7 +18,5 @@ node_modules
 .DS_Store
 
 # Bower modules
-src/lib
 
 # Distribution folder
-dist
