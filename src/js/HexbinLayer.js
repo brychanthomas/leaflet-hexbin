@@ -19,7 +19,8 @@
 			},
 			valueFloor: 0,
 			valueCeil: undefined,
-			colorRange: ['#f7fbff', '#08306b']
+			colorRange: ['#f7fbff', '#08306b'],
+			radiusRange: [1, 10],
 		},
 
 		initialize : function(options) {
@@ -33,6 +34,10 @@
 			this._data = [];
 			this._colorScale = d3.scale.linear()
 				.range(this.options.colorRange)
+				.clamp(true);
+
+			this._radiusScale = d3.scale.sqrt()
+				.range(this.options.radiusRange)
 				.clamp(true);
 		},
 
@@ -155,6 +160,7 @@
 
 			// Set the colorscale domain to be the extent (after we muck with it a bit)
 			that._colorScale.domain(extent);
+			that._radiusScale.domain(extent);
 
 			// Update the d3 visualization
 			var join = g.selectAll('path.hexbin-hexagon')
@@ -165,7 +171,7 @@
 	
 			join.enter().append('path').attr('class', 'hexbin-hexagon')
 				.attr('d', function(d){
-					return 'M' + d.x + ',' + d.y + that._hexLayout.hexagon();
+					return 'M' + d.x + ',' + d.y + that._hexLayout.hexagon(that._radiusScale(d.length));
 				})
 				.attr('fill', function(d){ return that._colorScale(d.length); })
 				.attr('opacity', 0.01)
@@ -223,6 +229,19 @@
 			}
 
 			this._colorScale = colorScale;
+			this._redraw();
+			return this;
+		},
+
+		/*
+		 * Getter/setter for the radiusScale
+		 */
+		radiusScale: function(radiusScale) {
+			if(undefined === radiusScale){
+				return this._radiusScale;
+			}
+
+			this._radiusScale = radiusScale;
 			this._redraw();
 			return this;
 		},
