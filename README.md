@@ -40,7 +40,7 @@ hexLayer.data([[lng1, lat1], [lng2, lat2], ... [lngN, latN]]);
 The easiest way to include this plugin in your project, use [Bower](http://bower.io)
 
 ```bash
-bower install -S leaflet-hexbin
+bower install -S leaflet-hexbin-2
 ```
 
 Alternatively, you can download the source or minified javascript files yourself from the GitHub repository (they are contained in the dist directory).

@@ -1,8 +1,9 @@
 {
-  "name": "leaflet-hexbin",
-  "version": "0.1.1",
+  "name": "leaflet-hexbin-2",
+  "version": "0.1.2",
   "authors": [
-    "reblace <reblace@gmail.com>"
+    "reblace <reblace@gmail.com>",
+    "syntagmatic"
   ],
   "main": "leaflet-hexbin.js",
   "scripts": [
