@@ -1,5 +1,9 @@
 # Leaflet D3 Hexbin Plugin
 
+## syntagmatic's changes
+
+* Radius Scale by default, plus accessor (radius option no longer takes effect)
+
 [![Build Status][travis-image]][travis-url]
 
 ## What is it?
@@ -30,7 +34,6 @@ hexLayer.colorScale().range('white', 'blue');
 
 // Set the data (can be set multiple times)
 hexLayer.data([[lng1, lat1], [lng2, lat2], ... [lngN, latN]]);
-
 ```
 
 ## How do I include this plugin in my project?
