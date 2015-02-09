@@ -212,6 +212,22 @@
 			return { min: bounds[0], max: bounds[1] };
 		},
 
+    getBounds: function() {
+      var that = this;
+			var data = that._data.map(function(d) {
+				var lng = that.options.lng(d);
+				var lat = that.options.lat(d);
+
+				return { o: d, point: [lng, lat]};
+			});
+      var bounds = that._getBounds(data);
+      console.log(bounds);
+      return [
+        [bounds.min[0], bounds.min[1]],
+        [bounds.max[0], bounds.max[1]]
+      ]
+    },
+
 		/* 
 		 * Setter for the data
 		 */
