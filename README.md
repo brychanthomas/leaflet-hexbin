@@ -2,7 +2,7 @@
 
 ## syntagmatic's changes
 
-* Radius Scale by default, plus accessor (radius option no longer takes effect)
+* radiusScale controls hexagon sizes for bivariate hexmaps
 
 [![Build Status][travis-image]][travis-url]
 
@@ -15,7 +15,8 @@ To use, simply declare a hexbin layer and add it to your map. You can then add d
 ```js
 // Options for the hexbin layer
 var options = {
-	radius : 10,							// Size of the hexagons/bins
+  radiusScale: [1,10],      // Size of hexagons
+	radius : 10,							// Size of bins
 	opacity: 0.5,							// Opacity of the hexagonal layer
 	lng: function(d){ return d[0]; },		// longitude accessor
 	lat: function(d){ return d[1]; },		// latitude accessor
