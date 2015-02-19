@@ -1,4 +1,4 @@
-/*! leaflet-hexbin.js Version: 0.1.1 */
+/*! leaflet-hexbin.js Version: 0.1.3 */
 (function(){
 	"use strict";
 
