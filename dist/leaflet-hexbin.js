@@ -105,7 +105,7 @@
 				var lat = that.options.lat(d);
 
 				var point = that._project([lng, lat]);
-				return { o: d, point: point };
+				return { o: d, point: point, d: d };
 			});
 
 			var zoom = this._map.getZoom();
