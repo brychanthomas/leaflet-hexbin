@@ -163,22 +163,32 @@
 			that._radiusScale.domain(extent);
 
 			// Update the d3 visualization
-			var join = g.selectAll('path.hexbin-hexagon')
+			that.hexagons = g.selectAll('path.hexbin-hexagon')
 				.data(bins, function(d){ return d.i + ':' + d.j; });
 
-			join.transition().duration(200)
+			that.hexagons.transition().duration(200)
 				.attr('fill', function(d){ return that._colorScale(d.length); });
 	
-			join.enter().append('path').attr('class', 'hexbin-hexagon')
+			that.hexagons.enter().append('path').attr('class', 'hexbin-hexagon')
 				.attr('d', function(d){
 					return 'M' + d.x + ',' + d.y + that._hexLayout.hexagon(that._radiusScale(d.length));
 				})
 				.attr('fill', function(d){ return that._colorScale(d.length); })
 				.attr('opacity', 0.01)
 				.transition().duration(200)
-				.attr('opacity', that.options.opacity);
+				.attr('opacity', that.options.opacity)
+
+      if (that.options.hexMouseOver) {
+       that.hexagons.on("mouseover", that.options.hexMouseOver);
+      }
+      if (that.options.hexMouseOut) {
+       that.hexagons.on("mouseout", that.options.hexMouseOut);
+      }
+      if (that.options.hexClick) {
+       that.hexagons.on("click", that.options.hexClick);
+      }
 	
-			join.exit().transition().duration(200)
+			that.hexagons.exit().transition().duration(200)
 				.attr('opacity', 0.01)
 				.remove();
 		},
@@ -210,6 +220,22 @@
 
 			return { min: bounds[0], max: bounds[1] };
 		},
+
+    getBounds: function() {
+      var that = this;
+			var data = that._data.map(function(d) {
+				var lng = that.options.lng(d);
+				var lat = that.options.lat(d);
+
+				return { o: d, point: [lng, lat]};
+			});
+      var bounds = that._getBounds(data);
+      console.log(bounds);
+      return [
+        [bounds.min[0], bounds.min[1]],
+        [bounds.max[0], bounds.max[1]]
+      ]
+    },
 
 		/* 
 		 * Setter for the data
@@ -257,7 +283,37 @@
 			this.options.value = valueFn;
 			this._redraw();
 			return this;
-		}
+		},
+
+		hexClick: function(fn) {
+			if(undefined === fn){
+				return this.options.hexClick;
+			}
+
+			this.options.hexClick = fn;
+			this.hexagons.on("click", fn);
+			return this;
+    },
+
+		hexMouseOver: function(fn) {
+			if(undefined === fn){
+				return this.options.hexMouseOver;
+			}
+
+			this.options.hexMouseOver = fn;
+			this.hexagons.on("mouseover", fn);
+			return this;
+    },
+
+		hexMouseOut: function(fn) {
+			if(undefined === fn){
+				return this.options.hexMouseOut;
+			}
+
+			this.options.hexMouseOut = fn;
+			this.hexagons.on("mouseout", fn);
+			return this;
+    }
 
 	});
 

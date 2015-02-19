@@ -1,10 +1,9 @@
 # Leaflet D3 Hexbin Plugin
 
-## syntagmatic's changes
+## Chance from original
 
-* Radius Scale by default, plus accessor (radius option no longer takes effect)
-
-[![Build Status][travis-image]][travis-url]
+* radiusRange controls hexagon sizes for bivariate hexmaps
+* hexMouseOver, hexMouseOut, hexClick
 
 ## What is it?
 This is a Leaflet plugin that enables you to place a d3.js hexbin heatmap overlay onto your maps. This plugin is based on [the work of Steven Hall](http://www.delimited.io/blog/2013/12/1/hexbins-with-d3-and-leaflet-maps). The primary difference is that this plugin leverages the data-binding power of d3 to allow you to dynamically update the data and visualize the transitions.
@@ -15,7 +14,8 @@ To use, simply declare a hexbin layer and add it to your map. You can then add d
 ```js
 // Options for the hexbin layer
 var options = {
-	radius : 10,							// Size of the hexagons/bins
+  radiusRange: [1,10],      // Size of hexagons
+	radius : 10,							// Size of bins
 	opacity: 0.5,							// Opacity of the hexagonal layer
 	lng: function(d){ return d[0]; },		// longitude accessor
 	lat: function(d){ return d[1]; },		// latitude accessor
@@ -40,7 +40,7 @@ hexLayer.data([[lng1, lat1], [lng2, lat2], ... [lngN, latN]]);
 The easiest way to include this plugin in your project, use [Bower](http://bower.io)
 
 ```bash
-bower install -S leaflet-hexbin
+bower install -S leaflet-hexbin-2
 ```
 
 Alternatively, you can download the source or minified javascript files yourself from the GitHub repository (they are contained in the dist directory).
