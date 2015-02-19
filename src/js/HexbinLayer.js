@@ -230,7 +230,6 @@
 				return { o: d, point: [lng, lat]};
 			});
       var bounds = that._getBounds(data);
-      console.log(bounds);
       return [
         [bounds.min[0], bounds.min[1]],
         [bounds.max[0], bounds.max[1]]
