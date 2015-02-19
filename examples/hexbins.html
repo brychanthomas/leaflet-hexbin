@@ -17,8 +17,8 @@ body {
   margin: 40px auto;
 }
 .hexbin-hexagon {
-  stroke: #000;
-  stroke-width: .5px;
+  stroke: #777;
+  stroke: 1;
 }
 #map {
   width: 600px;
@@ -32,8 +32,10 @@ body {
 <body>
 <div id="map"></div>
 <button onclick="generateData()">Generate Data</button>
+<pre id="json-print"></pre>
 
 <script>
+var selected = {};
 
 var center = [39.4, -78];
 
@@ -60,7 +62,31 @@ var options = {
   valueCeil: undefined
 };
 
-var hexLayer = L.hexbinLayer(options).addTo(map)
+var hexLayer = L.hexbinLayer(options)
+  .addTo(map)
+  .hexMouseOver(function(d) {
+    d3.select(this)
+      .style("stroke-width", 1.5);
+    d3.select("#json-print")
+      .style("color", "#ccc")
+      .text(JSON.stringify(d,undefined, 2));
+  })
+  .hexMouseOut(function(d) {
+    d3.select(this)
+      .style("stroke-width", null);
+    d3.select("#json-print")
+      .style("color", null)
+      .text(JSON.stringify(selected,undefined, 2));
+    })
+  .hexClick(function(d) {
+    hexLayer.hexagons.style("stroke", null);
+    d3.select(this).style("stroke", "#f03b20");
+    selected = d;
+    d3.select("#json-print")
+      .style("color", null)
+      .text(JSON.stringify(selected,undefined, 2));
+    });
+
 hexLayer.colorScale(
   d3.scale.quantize()
     .range(['rgb(255,255,204)','rgb(161,218,180)','rgb(65,182,196)','rgb(44,127,184)','rgb(37,52,148)'])
