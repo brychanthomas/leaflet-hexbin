@@ -20,6 +20,10 @@ body {
   stroke: #777;
   stroke: 1;
 }
+.hexbin-hexagon.selected {
+  stroke-width: 2;
+  stroke: #f03b20;
+}
 #map {
   width: 600px;
   height: 400px;
@@ -79,8 +83,8 @@ var hexLayer = L.hexbinLayer(options)
       .text(JSON.stringify(selected,undefined, 2));
     })
   .hexClick(function(d) {
-    hexLayer.hexagons.style("stroke", null);
-    d3.select(this).style("stroke", "#f03b20");
+    hexLayer.hexagons.classed("selected", false);
+    d3.select(this).classed("selected", true);
     selected = d;
     d3.select("#json-print")
       .style("color", null)
