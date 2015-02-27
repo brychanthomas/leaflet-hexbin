@@ -123,7 +123,7 @@
 				.style('margin-left', marginLeft + 'px')
 				.style('margin-top', marginTop + 'px');
 
-			// Select the hex group for the current zoom level. This has 
+			// Select the hex group for the current zoom level. This has
 			// the effect of recreating the group if the zoom level has changed
 			var join = this._container.selectAll('g.hexbin')
 				.data([zoom], function(d){ return d; });
@@ -168,7 +168,7 @@
 
 			that.hexagons.transition().duration(200)
 				.attr('fill', function(d){ return that._colorScale(d.length); });
-	
+
 			that.hexagons.enter().append('path').attr('class', 'hexbin-hexagon')
 				.attr('d', function(d){
 					return 'M' + d.x + ',' + d.y + that._hexLayout.hexagon(that._radiusScale(d.length));
@@ -187,7 +187,7 @@
       if (that.options.hexClick) {
        that.hexagons.on("click", that.options.hexClick);
       }
-	
+
 			that.hexagons.exit().transition().duration(200)
 				.attr('opacity', 0.01)
 				.remove();
@@ -236,7 +236,7 @@
       ]
     },
 
-		/* 
+		/*
 		 * Setter for the data
 		 */
 		data : function(data) {
@@ -312,7 +312,13 @@
 			this.options.hexMouseOut = fn;
 			this.hexagons.on("mouseout", fn);
 			return this;
-    }
+    },
+
+		setZIndex: function(zIndex) {
+			if (this._container && this._container[0] && this._container[0][0]) {
+				this._container[0][0].style.zIndex = zIndex;
+			}
+		}
 
 	});
 
