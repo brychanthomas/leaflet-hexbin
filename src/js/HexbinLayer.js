@@ -167,13 +167,13 @@
 				.data(bins, function(d){ return d.i + ':' + d.j; });
 
 			that.hexagons.transition().duration(200)
-				.attr('fill', function(d){ return that._colorScale(d.length); });
+				.attr('fill', function(d){ return that._colorScale(that.options.value(d)); });
 
 			that.hexagons.enter().append('path').attr('class', 'hexbin-hexagon')
 				.attr('d', function(d){
-					return 'M' + d.x + ',' + d.y + that._hexLayout.hexagon(that._radiusScale(d.length));
+					return 'M' + d.x + ',' + d.y + that._hexLayout.hexagon(that._radiusScale(that.options.value(d)));
 				})
-				.attr('fill', function(d){ return that._colorScale(d.length); })
+				.attr('fill', function(d){ return that._colorScale(that.options.value(d)); })
 				.attr('opacity', 0.01)
 				.transition().duration(200)
 				.attr('opacity', that.options.opacity)
